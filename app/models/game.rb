@@ -22,11 +22,7 @@ class Game < ApplicationRecord
             card1.update(user_id: user2.id)
         else
             puts 'its a draw'
-            # user1_soldier1 = user1.cards.where.not(id: card1.id).sample
-            # user1_soldier2 = user1.cards.where.not(id: card1.id).or(user1.cards.where.not(id: user1_soldier1.id)).sample
-            # user1_soldier3 = user1.cards.where.not(id: card1.id).or(user1.cards.where.not(id: user1_soldier1.id)).or(user1.cards.where.not(id: user1_soldier2.id)).sample
-            # user1_war = user1.cards.where.not(id: card1.id).or(user1.cards.where.not(id: user1_soldier1.id)).or(user1.cards.where.not(id: user1_soldier2.id)).or(user1.cards.where.not(id: user1_soldier3.id)).sample
-            
+
             user1_soldier1 = user1.cards.where.not(id: card1.id).sample
             user1_soldier1.update(user_id: nil)
             user1_soldier2 = user1.cards.where.not(id: card1.id).sample
@@ -36,24 +32,7 @@ class Game < ApplicationRecord
             user1_war = user1.cards.where.not(id: card1.id).sample
             user1_war.update(user_id: nil)
 
-
-            # user1_soldier1 = user1.cards.where.not(id: card1.id).sample
-            # user1_soldier2 = user1.cards.where.not(id: [card1.id,user1_soldier1.id])
-            # user1_soldier3 = user1.cards.where.not(id: [card1.id,user1_soldier1.id,user1_soldier2.id])
-            # user1_war = user1.cards.where.not(id: [card1.id,user1_soldier1.id,user1_soldier2.id,user1_soldier3.id])
-          
-          
-            # user2_soldier1 = user2.cards.where.not(id: card1.id).sample
-            # user2_soldier2 = user2.cards.where.not(id: card1.id).or(user2.cards.where.not(id: user2_soldier1.id)).sample
-            # user2_soldier3 = user2.cards.where.not(id: card1.id).or(user2.cards.where.not(id: user2_soldier1.id)).or(user2.cards.where.not(id: user2_soldier2.id)).sample
-            # user2_war = user2.cards.where.not(id: card1.id).or(user2.cards.where.not(id: user2_soldier1.id)).or(user2.cards.where.not(id: user2_soldier2.id)).or(user2.cards.where.not(id: user2_soldier3.id)).sample
-            
-            # user2_soldier1 = user2.cards.where.not(id: card1.id).sample
-            # user2_soldier2 = user2.cards.where.not(id: [card1.id,user2_soldier1.id])
-            # user2_soldier3 = user2.cards.where.not(id: [card1.id,user2_soldier1.id,user2_soldier2.id])
-            # user2_war = user2.cards.where.not(id: [card1.id,user2_soldier1.id,user2_soldier2.id,user2_soldier3.id])
-
-            
+ 
             user2_soldier1 = user2.cards.where.not(id: card2.id).sample
             user2_soldier1.update(user_id: nil)
             user2_soldier2 = user2.cards.where.not(id: card2.id).sample
@@ -62,6 +41,7 @@ class Game < ApplicationRecord
             user2_soldier3.update(user_id: nil)
             user2_war = user2.cards.where.not(id: card2.id).sample
             user2_war.update(user_id: nil)
+
 
                 if user1_war.value > user2_war.value
                     card2.update(user_id: user1.id)
