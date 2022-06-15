@@ -84,14 +84,16 @@ end
         if asked_user.cards.where(value: number).count > 0
             puts "Yea I do have #{number}"
             asked_user.cards.where(value: number).update(user_id: asking_user.id)
-                if asking_user.cards.where(value: number).count == 4
-                    puts "Congrats you've completed a set!"
-                else
-                    puts "Not quite a complete set"
-                end
+            if asking_user.cards.where(value: number).count == 4
+                puts "Congrats you've completed a set!"
+            else
+                puts "Not quite a complete set"
+            end
+            return true
         else
             puts "Go fish"
             asking_user.draw
+            return false
         end
     end
 

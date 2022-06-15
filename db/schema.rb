@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_10_141132) do
+ActiveRecord::Schema.define(version: 2022_06_15_172803) do
 
   create_table "cards", force: :cascade do |t|
     t.integer "value"
@@ -33,6 +33,8 @@ ActiveRecord::Schema.define(version: 2022_06_10_141132) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "chips", default: 0
+    t.string "username"
   end
 
 end
