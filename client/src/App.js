@@ -11,7 +11,7 @@ import {useState, useEffect} from 'react'
 
 function App() {
 
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState("")
     const [allCards, setAllCards] = useState([])
 
 
@@ -19,6 +19,7 @@ function App() {
       fetch("http://localhost:4000/me").then((response) => {
         if (response.ok) {
           response.json().then((user) => setUser(user));
+          console.log('user', user)
         }
       });
     }, []);
@@ -33,11 +34,11 @@ function App() {
 
     console.log(allCards)
 
-if (user) {
+// if (user) {
   return (
     <div className="App">
-      <h2>Welcome, {user.username}!</h2>
-      <Navbar />
+      {/* <h2>Welcome, {user.username}!</h2> */}
+      <Navbar  onLogout={setUser}/>
       <Switch>
         <Route exact path ='/'>
           <HomePage />
@@ -58,9 +59,10 @@ if (user) {
 
 
     </div>
-  )} else {
-    return( <Login onLogin={setUser} onLogout={setUser} />)
-  }
+  )
+// } else {
+//     return( <Login onLogin={setUser}/>)
+//   }
 }
 
 export default App;

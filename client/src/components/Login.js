@@ -17,7 +17,7 @@ const Login = ({onLogin}) => {
           body: JSON.stringify({ username }),
         })
           .then((r) => r.json())
-          .then((user) => onLogin(true));
+          .then((user) => onLogin(user));
       }
 
     return(

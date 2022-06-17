@@ -1,14 +1,19 @@
-const Navbar = () => {
+import { NavLink } from "react-router-dom"
 
-    const handleLogout = ({onLogout}) => {
-        fetch("http://localhost:4000/logout", {
-            method: "DELETE",
-          }).then(() => onLogout(null));
-    }
+const Navbar = ({onLogout}) => {
+
+async function handleLogout () {
+    let req = await fetch('http://localhost:4000/logout', {
+        method: "DELETE"
+    })
+    onLogout()
+}
+
 
     return(
         <div>
             <header>
+                <NavLink to='/' exact>Home</NavLink>
                 <button onClick={handleLogout}>Logout</button>
             </header>
         </div>
