@@ -1,4 +1,4 @@
-const Card = ({element}) => {
+const Card = ({element, setSelectedCardValue}) => {
 
     const {value, suit, image, name} = element
  

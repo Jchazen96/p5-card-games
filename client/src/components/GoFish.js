@@ -16,17 +16,20 @@ const GoFish = () => {
     }
 
     console.log(playerCards)
+    console.log(selectedCardValue)
 
     return(
         <div>
             <h1>Go Fish</h1>
 
             <button onClick={startGoFish} disabled={startBtnDisabled}>Start Game</button>
+            <div onClick={setSelectedCardValue}>
             {
                 playerCards.map((element)=>{
-                    return(<Card element={element} key={element.id}/>)
+                    return(<Card element={element} key={element.id} setSelectedCardValue={setSelectedCardValue}/>)
                 })
             }
+            </div>
         </div>
     )
 }
