@@ -2,34 +2,41 @@ import {useState} from 'react'
 
 
 
-const Login = ({onLogin}) => {
+const Login = ({setUser, history}) => {
 
-    const [username, setUsername] = useState('')
-   
+    const [formData, setFormData] = useState({username: '', password: ''})
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        fetch("http://localhost:4000/login", {
+    const signupClick = () => {
+      history.push('/signup')
+    }
+
+
+    const handleSubmit = async (e) => {
+      e.preventDefault()
+      let req = await fetch('http://localhost:4000/sessions', {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ username }),
-        })
-          .then((r) => r.json())
-          .then((user) => onLogin(user));
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(formData)
+      })
+      let res = await req.json()
+      if (res.username) {
+      setUser(res.username)
       }
+      else {
+        alert(res.error)
+      }
+    }
 
     return(
         <div>
             <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
+      <input type="text" placeholder='Username' onChange={(e) => setFormData({...formData, username:e.target.value})}/>
+      <input type='password' placeholder='Password' onChange={(e) => setFormData({...formData, password:e.target.value})} />
       <button type="submit">Login</button>
     </form>
+    <div>
+      <button onClick={signupClick}>Sign Up</button>
+    </div>
         </div>
     )
 }

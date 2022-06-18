@@ -1,28 +1,28 @@
 import './App.css';
-import {Route, Switch} from 'react-router-dom'
+import {Route, Switch, useHistory} from 'react-router-dom'
 import HomePage from './components/HomePage';
 import War from './components/War';
 import Blackjack from './components/Blackjack';
 import GoFish from './components/GoFish'
 import Login from './components/Login';
 import Navbar from './components/Navbar';
+import Signup from './components/Signup';
 import {useState, useEffect} from 'react'
 
 
 function App() {
 
+    const history = useHistory()
     const [user, setUser] = useState("")
     const [allCards, setAllCards] = useState([])
 
-
-    useEffect(() => {
-      fetch("http://localhost:4000/me").then((response) => {
-        if (response.ok) {
-          response.json().then((user) => setUser(user));
-          console.log('user', user)
-        }
-      });
-    }, []);
+    useEffect(()=>{
+      if (!user) {
+        history.push('/login')
+      } else {
+        history.push('/')
+      }
+    },[user])
 
     useEffect(()=>{
       (async()=>{
@@ -34,17 +34,14 @@ function App() {
 
     console.log(allCards)
 
-// if (user) {
+if (user) {
   return (
     <div className="App">
-      {/* <h2>Welcome, {user.username}!</h2> */}
-      <Navbar  onLogout={setUser}/>
+      <h2>Welcome, {user}!</h2>
+      <Navbar  setUser={setUser}/>
       <Switch>
         <Route exact path ='/'>
           <HomePage />
-        </Route>
-        <Route exact path = '/login'>
-          <Login />
         </Route>
         <Route exact path ='/war'>
           <War />
@@ -56,13 +53,20 @@ function App() {
           <GoFish />
         </Route>
       </Switch>
-
-
     </div>
   )
-// } else {
-//     return( <Login onLogin={setUser}/>)
-//   }
+} else {
+    return( 
+    <Switch>
+       <Route exact path = '/login'>
+          <Login history={history} setUser={setUser} />
+        </Route>
+        <Route exact path = '/signup'>
+          <Signup setUser={setUser}/>
+        </Route>
+    </Switch>
+        )
+  }
 }
 
 export default App;

@@ -1,12 +1,12 @@
 import { NavLink } from "react-router-dom"
 
-const Navbar = ({onLogout}) => {
+const Navbar = ({setUser}) => {
 
 async function handleLogout () {
-    let req = await fetch('http://localhost:4000/logout', {
+    let req = await fetch('http://localhost:4000/sessions', {
         method: "DELETE"
     })
-    onLogout()
+    setUser('')
 }
 
 
