@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_18_164238) do
+ActiveRecord::Schema.define(version: 2022_06_20_223329) do
 
   create_table "cards", force: :cascade do |t|
     t.integer "value"
@@ -22,12 +22,14 @@ ActiveRecord::Schema.define(version: 2022_06_18_164238) do
     t.string "image"
     t.string "name"
     t.boolean "in_use", default: false
+    t.boolean "in_set", default: false
   end
 
   create_table "games", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "status"
   end
 
   create_table "players", force: :cascade do |t|
@@ -45,6 +47,7 @@ ActiveRecord::Schema.define(version: 2022_06_18_164238) do
     t.string "username"
     t.integer "game_id"
     t.string "password_digest"
+    t.boolean "is_turn"
   end
 
 end

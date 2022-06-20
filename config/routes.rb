@@ -14,5 +14,8 @@ Rails.application.routes.draw do
   # delete '/logout', to: 'sessions#destroy'
   get '/draw', to: 'cards#draw'
   get '/draw2', to: 'cards#draw2'
-  get '/start-go-fish', to: 'cards#start_go_fish'
+  # get '/start-go-fish', to: 'cards#start_go_fish'
+  post '/gofish/findgame', to: 'games#find_gofish'
+  get '/gofish/refresh/:game_id', to: 'games#refresh_gofish'
+  post '/gofish/ask', to: 'games#ask_gofish'
 end
