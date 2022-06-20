@@ -60,8 +60,12 @@ class GamesController < ApplicationController
     def check_set
         user = User.find_by(id: params[:id])
         i = 2
-       
-        
+        while i <= 14
+            if user.cards.where(value: i).count == 4
+                user.cards.where(value: i).all.update(in_set: true)
+            end
+            i = i+1
+        end
 
         # 13.times do
         #     if user.cards.where(value: i).count == 4
