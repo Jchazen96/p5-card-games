@@ -1,6 +1,6 @@
 import { NavLink, useHistory } from "react-router-dom";
 
-const HomePage = ({user}) => {
+const HomePage = ({user, setGameId}) => {
 
     const history = useHistory()
 
@@ -11,6 +11,7 @@ const HomePage = ({user}) => {
             body: JSON.stringify(user)
         })
         let res = await req.json()
+        setGameId(res.game_id)
         history.push(`/go-fish/${res.game_id}`)
     }
 

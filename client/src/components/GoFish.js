@@ -2,11 +2,9 @@ import {useState, useEffect} from 'react'
 import Card from './Card'
 
 
-const GoFish = ({user}) => {
+const GoFish = ({user, gameId}) => {
 
     const [playerCards, setPlayerCards] = useState([])
-    const [selectedCardValue, setSelectedCardValue] = useState(0)
-    const [startBtnDisabled, setStartBtnDisabled] = useState(false)
     
     useEffect(()=>{
         (async()=>{
@@ -16,19 +14,29 @@ const GoFish = ({user}) => {
         })()
     },[])
 
+    const handleCheckTurn = async () => {
+        let req = await fetch(`http://localhost:4000/gofish/refresh/${gameId}?id=${user.id}`)
+        let res = await req.json()
+        if (res.user_turn === true) {
+            alert('It is your turn!')
+        } else {
+            alert('It is not your turn!')
+        }
+        setPlayerCards(res.user_cards)
+    }
+
 
     console.log(playerCards)
-    console.log(selectedCardValue)
 
     return(
         <div>
             <h1>Go Fish</h1>
 
-            {/* <button onClick={startGoFish} disabled={startBtnDisabled}>Start Game</button> */}
+            <button onClick={handleCheckTurn}>Check turn</button>
             <div>
             {
                 playerCards.map((element)=>{
-                    return(<Card element={element} key={element.id} setSelectedCardValue={setSelectedCardValue}/>)
+                    return(<Card element={element} key={element.id} user={user} setPlayerCards={setPlayerCards}/>)
                 })
             }
             </div>

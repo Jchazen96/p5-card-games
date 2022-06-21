@@ -32,6 +32,7 @@ class GamesController < ApplicationController
         asking_user = User.find_by(id: params[:id])
         game = Game.find_by(id: asking_user.game_id)
         asked_user = User.where(game_id: game.id).where.not(id: asking_user.id).first
+        
         if asking_user.is_turn == true
             asking_user.update(is_turn: false)
             asked_user.update(is_turn: true)

@@ -8,6 +8,7 @@ class User < ApplicationRecord
     def draw 
         card = Card.where(user_id: nil).sample
         card.update(user_id: id)
+        card.update(in_use: true)
     end
 
     def cards

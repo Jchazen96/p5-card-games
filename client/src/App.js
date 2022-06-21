@@ -15,6 +15,7 @@ function App() {
     const history = useHistory()
     const [user, setUser] = useState({id: 0, name: "", chips: 0, username: "", game_id: 0, is_turn: false})
     const [allCards, setAllCards] = useState([])
+    const [gameId, setGameId] = useState(0)
 
     useEffect(()=>{
       if (!user.username) {
@@ -41,7 +42,7 @@ if (user.username) {
       <Navbar  setUser={setUser}/>
       <Switch>
         <Route exact path ='/'>
-          <HomePage user={user}/>
+          <HomePage user={user} setGameId={setGameId}/>
         </Route>
         <Route exact path ='/war'>
           <War />
@@ -50,7 +51,7 @@ if (user.username) {
           <Blackjack allCards={allCards}/>
         </Route>
         <Route exact path ='/go-fish/:id'>
-          <GoFish user={user}/>
+          <GoFish user={user} gameId={gameId}/>
         </Route>
       </Switch>
     </div>
