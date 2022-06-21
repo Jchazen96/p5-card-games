@@ -4,7 +4,7 @@ const Card = ({element, setSelectedCardValue}) => {
  
     return (
         <div>
-            <img src={image} />
+            <img src={image} onClick={()=>{setSelectedCardValue(value)}}/>
             <h2>Value {value}</h2>
             <h2>Suit {suit}</h2>
             <h2>Name {name}</h2>

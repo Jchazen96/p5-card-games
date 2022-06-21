@@ -25,7 +25,7 @@ const GoFish = ({user}) => {
             <h1>Go Fish</h1>
 
             {/* <button onClick={startGoFish} disabled={startBtnDisabled}>Start Game</button> */}
-            <div onClick={setSelectedCardValue}>
+            <div>
             {
                 playerCards.map((element)=>{
                     return(<Card element={element} key={element.id} setSelectedCardValue={setSelectedCardValue}/>)
