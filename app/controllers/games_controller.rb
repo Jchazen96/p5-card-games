@@ -67,12 +67,6 @@ class GamesController < ApplicationController
             i = i+1
         end
 
-        # 13.times do
-        #     if user.cards.where(value: i).count == 4
-        #         user.cards.where(value: i).all.update(in_set: true)
-        #         i = i + 1
-        #     end 
-        # end
     end
 
 end

@@ -2,18 +2,20 @@ import {useState, useEffect} from 'react'
 import Card from './Card'
 
 
-const GoFish = () => {
+const GoFish = ({user}) => {
 
     const [playerCards, setPlayerCards] = useState([])
     const [selectedCardValue, setSelectedCardValue] = useState(0)
     const [startBtnDisabled, setStartBtnDisabled] = useState(false)
+    
+    useEffect(()=>{
+        (async()=>{
+            let req = await fetch(`http://localhost:4000/users/${user.id}`)
+            let res = await req.json()
+            setPlayerCards(res)
+        })()
+    },[])
 
-    const startGoFish = async () => {
-        let req = await fetch('http://localhost:4000/start-go-fish')
-        let res = await req.json()
-        setPlayerCards(res)
-        setStartBtnDisabled(true)
-    }
 
     console.log(playerCards)
     console.log(selectedCardValue)
@@ -22,7 +24,7 @@ const GoFish = () => {
         <div>
             <h1>Go Fish</h1>
 
-            <button onClick={startGoFish} disabled={startBtnDisabled}>Start Game</button>
+            {/* <button onClick={startGoFish} disabled={startBtnDisabled}>Start Game</button> */}
             <div onClick={setSelectedCardValue}>
             {
                 playerCards.map((element)=>{

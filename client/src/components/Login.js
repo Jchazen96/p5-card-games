@@ -19,8 +19,9 @@ const Login = ({setUser, history}) => {
           body: JSON.stringify(formData)
       })
       let res = await req.json()
-      if (res.username) {
-      setUser(res.username)
+      if (res) {
+        console.log(res)
+      setUser(res)
       }
       else {
         alert(res.error)

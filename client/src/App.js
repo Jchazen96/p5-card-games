@@ -13,11 +13,11 @@ import {useState, useEffect} from 'react'
 function App() {
 
     const history = useHistory()
-    const [user, setUser] = useState("")
+    const [user, setUser] = useState({id: 0, name: "", chips: 0, username: "", game_id: 0, is_turn: false})
     const [allCards, setAllCards] = useState([])
 
     useEffect(()=>{
-      if (!user) {
+      if (!user.username) {
         history.push('/login')
       } else {
         history.push('/')
@@ -34,14 +34,14 @@ function App() {
 
     console.log(allCards)
 
-if (user) {
+if (user.username) {
   return (
     <div className="App">
-      <h2>Welcome, {user}!</h2>
+      <h2>Welcome, {user.username}!</h2>
       <Navbar  setUser={setUser}/>
       <Switch>
         <Route exact path ='/'>
-          <HomePage />
+          <HomePage user={user}/>
         </Route>
         <Route exact path ='/war'>
           <War />
@@ -49,8 +49,8 @@ if (user) {
         <Route exact path ='/blackjack'>
           <Blackjack allCards={allCards}/>
         </Route>
-        <Route exact path ='/go-fish'>
-          <GoFish />
+        <Route exact path ='/go-fish/:id'>
+          <GoFish user={user}/>
         </Route>
       </Switch>
     </div>
