@@ -15,4 +15,5 @@ Rails.application.routes.draw do
   post '/gofish/findgame', to: 'games#find_gofish'
   get '/gofish/refresh/:game_id', to: 'games#refresh_gofish'
   post '/gofish/ask', to: 'games#ask_gofish'
+  get '/gofish/drawempty/:game_id', to: 'games#draw_for_empty'
 end

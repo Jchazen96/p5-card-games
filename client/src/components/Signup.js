@@ -33,12 +33,12 @@ const Signup = ({setUser}) => {
   
 
     return(
-        <div>
+        <div className='signup'>
             <h1>Signup</h1>
             <form onSubmit={handleSubmit}>
                 <input type='text' placeholder='Username' onChange={(e)=>{setFormData({...formData, username:e.target.value})}}></input>
-                <input type='password' placeholder='Password' onChange={(e)=>{setFormData({...formData, password:e.target.value})}}></input>
-                <input type='password' placeholder='Confirm Password' onChange={(e)=>{setFormData({...formData, password_confirmation:e.target.value})}}></input>
+                <input type='password' placeholder='Password' onChange={(e)=>{setFormData({...formData, password:e.target.value})}}></input><br/>
+                <input type='password' placeholder='Confirm Password' onChange={(e)=>{setFormData({...formData, password_confirmation:e.target.value})}}></input><br/>
                 <input type='submit'></input>
             </form>
         </div>

@@ -6,11 +6,11 @@ const Card = ({element, onClick}) => {
     
 
     return (
-        <div>
-            <img src={image} onClick={onClick}/>
-            <h2>Value {value}</h2>
-            <h2>Suit {suit}</h2>
-            <h2>Name {name}</h2>
+        <div className='card'>
+            <img className='card-img' src={image} onClick={onClick}/>
+            {/* <h2>Value {value}</h2> */}
+            {/* <h2>Suit {suit}</h2> */}
+            <h2>{name} of {suit}</h2>
         </div>
     )
 }

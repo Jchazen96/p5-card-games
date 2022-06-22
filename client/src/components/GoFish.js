@@ -7,7 +7,10 @@ const GoFish = ({user, gameId}) => {
     const [playerCards, setPlayerCards] = useState([])
     const [isTurn, setIsTurn] = useState(false)
     const [gameOver, setGameOver] = useState(false)
+    const [drawBtnVisible, setDrawBtnVisible] = useState(false)
     
+    let currentHand = (playerCards.filter((element)=>!element.in_set))
+
     useEffect(()=>{
         handleCheckTurn()
         if (gameOver){
@@ -17,6 +20,20 @@ const GoFish = ({user, gameId}) => {
         }
         return () => clearInterval(interval)
     },[gameOver])
+
+    useEffect(()=>{
+        if ((currentHand.length === 0 && isTurn === true)){
+            setDrawBtnVisible(true)
+        } else {
+            setDrawBtnVisible(false)
+        }
+    },[currentHand])
+
+    const drawForEmptyHand = async () => {
+            let req = await fetch(`http://localhost:4000/gofish/drawempty/${gameId}?id=${user.id}`)
+            let res = await req.json()
+            setPlayerCards(res.user_cards)
+    }
 
     const handleCheckTurn = async () => {
         let req = await fetch(`http://localhost:4000/gofish/refresh/${gameId}?id=${user.id}`)
@@ -28,7 +45,7 @@ const GoFish = ({user, gameId}) => {
         setIsTurn(res.user_turn)
         setPlayerCards(res.user_cards)
     }}
-
+    
 
     const askGoFish = async(value) => {
         let req = await fetch('http://localhost:4000/gofish/ask', {
@@ -43,14 +60,18 @@ const GoFish = ({user, gameId}) => {
     }
     console.log(playerCards)
 
-    
+    let sets = ((playerCards.filter((element)=>element.in_set).length) / 4)
+    console.log('sets', sets)
 
     return(
-        <div>
+        <div className='gofish'>
             <h1>Go Fish</h1>
-
-            <button onClick={handleCheckTurn}>Check turn</button>
-            <div>
+            <h2>Sets: {sets}</h2>
+            <div className='card-container'>
+                { drawBtnVisible ?
+                    <button onClick={drawForEmptyHand}>Draw!</button> :
+                    null
+                }
             {
                 playerCards.filter((element)=>!element.in_set).map((element)=>{
                     return(<Card element={element} key={element.id} setPlayerCards={setPlayerCards} onClick={()=>isTurn ? askGoFish(element.value) : alert('It is not your turn, please wait')}/>)

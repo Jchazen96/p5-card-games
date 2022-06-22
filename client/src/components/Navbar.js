@@ -13,7 +13,9 @@ async function handleLogout () {
     return(
         <div>
             <header>
+                <div className='home-nav'>
                 <NavLink to='/' exact>Home</NavLink>
+                </div>
                 <button onClick={handleLogout}>Logout</button>
             </header>
         </div>

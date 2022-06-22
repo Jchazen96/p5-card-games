@@ -29,13 +29,14 @@ const Login = ({setUser, history}) => {
     }
 
     return(
-        <div>
+        <div className='login-page'>
+          <h1 className='sign-in-title'> Sign In </h1>
             <form onSubmit={handleSubmit}>
       <input type="text" placeholder='Username' onChange={(e) => setFormData({...formData, username:e.target.value})}/>
-      <input type='password' placeholder='Password' onChange={(e) => setFormData({...formData, password:e.target.value})} />
+      <input type='password' placeholder='Password' onChange={(e) => setFormData({...formData, password:e.target.value})} /> <br/>
       <button type="submit">Login</button>
     </form>
-    <div>
+    <div className='signup-btn'>
       <button onClick={signupClick}>Sign Up</button>
     </div>
         </div>

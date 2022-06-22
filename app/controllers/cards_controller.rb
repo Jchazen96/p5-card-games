@@ -5,6 +5,11 @@ class CardsController < ApplicationController
         render json: cards
     end
 
+    def destroy
+        card = Card.find_by(id: params[:id])
+        card.destroy
+    end
+
     def draw
         card = Card.where(in_use: false).sample
         card.update(in_use: true)
