@@ -23,7 +23,7 @@ const Signup = ({setUser}) => {
       })
       let res = await req2.json()
         if (res.username) {
-            setUser(res.username)
+            setUser(prevState=> ({...prevState, username: res.username}))
             }
             else {
               alert(res.error)
