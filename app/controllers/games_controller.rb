@@ -95,12 +95,17 @@ class GamesController < ApplicationController
     def refresh_gofish
         user = User.find_by(id: params[:id])
         game = Game.find_by(id: params[:game_id])
-        if Card.where(in_set: true).count == 52
-            Card.delete(Card.all.where(game_id: game.id))
-            return render json: {message: 'Game Over'}
+        if User.where(game_id: game.id).count == 2
+            requesting_user = User.where(game_id: game.id).where(is_turn: false).first
+            if Card.where(in_set: true).count == 52
+                Card.delete(Card.all.where(game_id: game.id))
+                return render json: {message: 'Game Over'}
+            else
+                user = User.find_by(id: params[:id])
+                render json: {"user_turn": user.is_turn, "user_cards": user.cards, message: "#{requesting_user.username} requested card : #{game.requested_card}"}
+            end
         else
-            user = User.find_by(id: params[:id])
-            render json: {"user_turn": user.is_turn, "user_cards": user.cards, message: "Last requested card : #{game.requested_card}"}
+            render json: {"user_turn": user.is_turn, "user_cards": user.cards, message: "Wait for other user to join"}
         end
     end
 
