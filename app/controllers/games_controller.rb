@@ -93,13 +93,14 @@ class GamesController < ApplicationController
 
     # /gofish/refresh/:game_id?id=[:user_id]
     def refresh_gofish
+        user = User.find_by(id: params[:id])
         game = Game.find_by(id: params[:game_id])
         if Card.where(in_set: true).count == 52
             Card.delete(Card.all.where(game_id: game.id))
             return render json: {message: 'Game Over'}
         else
             user = User.find_by(id: params[:id])
-            render json: {"user_turn": user.is_turn, "user_cards": user.cards}
+            render json: {"user_turn": user.is_turn, "user_cards": user.cards, message: "Last requested card : #{game.requested_card}"}
         end
     end
 
@@ -108,21 +109,21 @@ class GamesController < ApplicationController
         asking_user = User.find_by(id: params[:id])
         game = Game.find_by(id: asking_user.game_id)
         asked_user = User.where(game_id: game.id).where.not(id: asking_user.id).first
-        
+        game.update(requested_card: params[:value])
         if asking_user.is_turn == true
             asking_user.update(is_turn: false)
             asked_user.update(is_turn: true)
             if asked_user.cards.where(value: params[:value]).count != 0
                 asked_user.cards.where(value: params[:value]).all.update(user_id: params[:id])
                 check_set()
-                render json: {"user_turn": asking_user.is_turn, "user_cards": asking_user.cards, message: "Opponent requested #{params[:value]}"}
+                render json: {"user_turn": asking_user.is_turn, "user_cards": asking_user.cards, message: "#{asking_user.username} requested #{params[:value]}"}
             else
                 asking_user.draw()
                 check_set()
-                render json: {"user_turn": asking_user.is_turn, "user_cards": asking_user.cards, message: "Opponent requested #{params[:value]}"}
+                                render json: {"user_turn": asking_user.is_turn, "user_cards": asking_user.cards, message: "#{asking_user.username} requested #{params[:value]}"}
             end
         else
-            render json: {"user_turn": asking_user.is_turn, "user_cards": asking_user.cards, message: "Opponent requested #{params[:value]}"}
+                            render json: {"user_turn": asking_user.is_turn, "user_cards": asking_user.cards, message: "#{asking_user.username} requested #{params[:value]}"}
         end
     end
 

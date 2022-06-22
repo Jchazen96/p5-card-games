@@ -8,6 +8,7 @@ const GoFish = ({user, gameId}) => {
     const [isTurn, setIsTurn] = useState(false)
     const [gameOver, setGameOver] = useState(false)
     const [drawBtnVisible, setDrawBtnVisible] = useState(false)
+    const [message, setMessage] = useState('')
     
     let currentHand = (playerCards.filter((element)=>!element.in_set))
 
@@ -44,6 +45,7 @@ const GoFish = ({user, gameId}) => {
         }else {
         setIsTurn(res.user_turn)
         setPlayerCards(res.user_cards)
+        setMessage(res.message)
     }}
     
 
@@ -58,14 +60,13 @@ const GoFish = ({user, gameId}) => {
         setIsTurn(res.user_turn)
         setPlayerCards(res.user_cards)
     }
-    console.log(playerCards)
 
     let sets = ((playerCards.filter((element)=>element.in_set).length) / 4)
-    console.log('sets', sets)
 
     return(
         <div className='gofish'>
             <h1>Go Fish</h1>
+            <h2>{message}</h2>
             <h2>Sets: {sets}</h2>
             <div className='card-container'>
                 { drawBtnVisible ?
