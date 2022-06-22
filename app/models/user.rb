@@ -6,7 +6,7 @@ class User < ApplicationRecord
     has_many :cards
 
     def draw 
-        card = Card.where(user_id: nil).sample
+        card = Card.where(user_id: nil).where(game_id: game_id).sample
         card.update(user_id: id)
         card.update(in_use: true)
     end

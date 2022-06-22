@@ -52,7 +52,7 @@ const GoFish = ({user, gameId}) => {
             <button onClick={handleCheckTurn}>Check turn</button>
             <div>
             {
-                playerCards.map((element)=>{
+                playerCards.filter((element)=>!element.in_set).map((element)=>{
                     return(<Card element={element} key={element.id} setPlayerCards={setPlayerCards} onClick={()=>isTurn ? askGoFish(element.value) : alert('It is not your turn, please wait')}/>)
                 })
             }
