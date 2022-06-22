@@ -1,15 +1,41 @@
 html {
-  /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
-  /* font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; */
-  /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
   background-color: rgb(27, 218, 27);
   color: rgb(218, 15, 15);
 }
-  
-.home-page {
-  font-family: Georgia, 'Times New Roman', Times, serif;
+
+body {
+  font-family: 'Didact Gothic', sans-serif;
 }
 
+button {
+  border: none;
+  margin: 5px;
+  background-color: lightsalmon;
+  font-size:20px;
+  border-radius: 35%;
+  color: white
+}
+
+.home-page {
+  text-align: center;
+  position:absolute;
+  top: 10%;
+  left: 31%;
+}
+
+.home-img {
+  height: 500px;
+  width: 500px;
+}
+
+.welcome-message {
+  text-align: center;
+}
+
+.logout-nav {
+  position: absolute;
+  right: 25%;
+}
 
 .login-page {
   /* background-color: white; */
@@ -33,9 +59,6 @@ html {
   top:50%;
 }
 
-.signup-btn {
-
-}
 
 .card-container {
   display: flex;
@@ -56,5 +79,10 @@ html {
 }
 
 .home-nav {
-  left: 0;
+  position: absolute;
+  left: 25%;
+}
+
+.nav {
+  display: flex;
 }

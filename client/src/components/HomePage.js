@@ -21,7 +21,10 @@ const HomePage = ({user, setGameId}) => {
           {/* <NavLink to='/blackjack' exact><button>Blackjack</button></NavLink> */}
           <a href='https://jchazen96.github.io/blackjack/'><button>Blackjack</button></a>
           {/* <NavLink to='/war' exact><button>War</button></NavLink> */}
-          <button onClick={findGoFish}>Go Fish</button>
+          <button onClick={findGoFish}>Go Fish</button> <br/>
+          <div>
+          <img className='home-img' src='https://www.casino.org/blog/wp-content/uploads/Cards-and-Chips-scaled.jpg'/>
+          </div>
         </div>
     )
 }

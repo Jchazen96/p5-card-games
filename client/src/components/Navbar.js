@@ -11,12 +11,14 @@ async function handleLogout () {
 
 
     return(
-        <div>
+        <div className='navbar'>
             <header>
                 <div className='home-nav'>
-                <NavLink to='/' exact>Home</NavLink>
+                <NavLink to='/' exact><button>Home</button></NavLink>
                 </div>
+                <div className='logout-nav'>
                 <button onClick={handleLogout}>Logout</button>
+                </div>
             </header>
         </div>
     )

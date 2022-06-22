@@ -37,7 +37,7 @@ function App() {
 if (user.username) {
   return (
     <div className="App">
-      <h2>Welcome, {user.username}!</h2>
+      <h2 className='welcome-message'>Welcome, {user.username}!</h2>
       <Navbar  setUser={setUser}/>
       <Switch>
         <Route exact path ='/'>
