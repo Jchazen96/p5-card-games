@@ -23,7 +23,7 @@ function App() {
       } else {
         history.push('/')
       }
-    },[user])
+    },[user.username])
 
     useEffect(()=>{
       (async()=>{
@@ -51,7 +51,7 @@ if (user.username) {
           <Blackjack allCards={allCards}/>
         </Route>
         <Route exact path ='/go-fish/:id'>
-          <GoFish user={user} gameId={gameId}/>
+          <GoFish user={user} gameId={gameId} setUser={setUser}/>
         </Route>
       </Switch>
     </div>
