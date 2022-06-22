@@ -5,5 +5,6 @@ class Card < ApplicationRecord
     def Card.reset_game
         Card.all.update(user_id: nil)
         Card.all.update(in_use: false)
+        Card.all.update(in_set: false)
     end 
 end

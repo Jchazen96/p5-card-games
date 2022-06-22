@@ -2,26 +2,33 @@ import {useState, useEffect} from 'react'
 import Card from './Card'
 
 
-const GoFish = ({user, gameId, setUser}) => {
+const GoFish = ({user, gameId}) => {
 
     const [playerCards, setPlayerCards] = useState([])
     const [isTurn, setIsTurn] = useState(false)
+    const [gameOver, setGameOver] = useState(false)
     
     useEffect(()=>{
         handleCheckTurn()
-    },[])
+        if (gameOver){
+            clearInterval(interval)
+        } else {
+            var interval =setInterval(handleCheckTurn, 2000)
+        }
+        return () => clearInterval(interval)
+    },[gameOver])
 
     const handleCheckTurn = async () => {
         let req = await fetch(`http://localhost:4000/gofish/refresh/${gameId}?id=${user.id}`)
         let res = await req.json()
+        if (res.message === 'Game Over') {
+            alert('Game Over')
+            setGameOver(true)
+        }else {
         setIsTurn(res.user_turn)
-        if (res.user_turn === true) {
-            alert('It is your turn!')
-        } else {
-            alert('It is not your turn!')
-        }
         setPlayerCards(res.user_cards)
-    }
+    }}
+
 
     const askGoFish = async(value) => {
         let req = await fetch('http://localhost:4000/gofish/ask', {
@@ -36,6 +43,8 @@ const GoFish = ({user, gameId, setUser}) => {
     }
     console.log(playerCards)
 
+    
+
     return(
         <div>
             <h1>Go Fish</h1>
@@ -44,7 +53,7 @@ const GoFish = ({user, gameId, setUser}) => {
             <div>
             {
                 playerCards.map((element)=>{
-                    return(<Card element={element} key={element.id} setPlayerCards={setPlayerCards} onClick={()=>isTurn ? askGoFish(element.value) : null}/>)
+                    return(<Card element={element} key={element.id} setPlayerCards={setPlayerCards} onClick={()=>isTurn ? askGoFish(element.value) : alert('It is not your turn, please wait')}/>)
                 })
             }
             </div>

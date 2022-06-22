@@ -19,12 +19,19 @@ class GamesController < ApplicationController
             user.update(is_turn: false)
             render json: {"game_id": game.id, "user_turn": user.is_turn, "user_cards": user.cards}
         end
+
+        #for websocket
+        ActionCable.server.broadcast 'games_channel', game
     end
 
     # /gofish/refresh/:game_id?id=[:user_id]
     def refresh_gofish
-        user = User.find_by(id: params[:id])
-        render json: {"user_turn": user.is_turn, "user_cards": user.cards}
+        if Card.where(in_set: true).count == 52
+            return render json: {message: 'Game Over'}
+        else
+            user = User.find_by(id: params[:id])
+            render json: {"user_turn": user.is_turn, "user_cards": user.cards}
+        end
     end
 
     # needs to pass in ID of user asking, and value they are asking for
@@ -67,7 +74,7 @@ class GamesController < ApplicationController
             end
             i = i+1
         end
-
+        
     end
 
 end
