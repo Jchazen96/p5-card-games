@@ -29,6 +29,7 @@ const Login = ({setUser, history}) => {
     }
 
     return(
+      <div classname='test'> 
         <div className='login-page'>
           <h1 className='sign-in-title'> Sign In </h1>
             <form onSubmit={handleSubmit}>
@@ -39,6 +40,7 @@ const Login = ({setUser, history}) => {
     <div className='signup-btn'>
       <button onClick={signupClick}>Sign Up</button>
     </div>
+        </div>
         </div>
     )
 }

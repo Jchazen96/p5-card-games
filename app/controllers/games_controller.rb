@@ -95,6 +95,7 @@ class GamesController < ApplicationController
     def refresh_gofish
         user = User.find_by(id: params[:id])
         game = Game.find_by(id: params[:game_id])
+        opponent = User.where(game_id: game.id).where.not(id: user.id).first
         if User.where(game_id: game.id).count == 2
             requesting_user = User.where(game_id: game.id).where(is_turn: false).first
             if Card.where(in_set: true).count == 52
@@ -102,7 +103,7 @@ class GamesController < ApplicationController
                 return render json: {message: 'Game Over'}
             else
                 user = User.find_by(id: params[:id])
-                render json: {"user_turn": user.is_turn, "user_cards": user.cards, message: "#{requesting_user.username} requested card : #{game.requested_card}"}
+                render json: {"user_turn": user.is_turn, "user_cards": user.cards, message: "#{requesting_user.username} requested card : #{game.requested_card}", "opponent_cards": "#{opponent.cards.count}"}
             end
         else
             render json: {"user_turn": user.is_turn, "user_cards": user.cards, message: "Wait for other user to join"}

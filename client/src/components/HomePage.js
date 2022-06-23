@@ -17,7 +17,7 @@ const HomePage = ({user, setGameId}) => {
 
     return(
         <div className='home-page'>
-           <h1>Select a game!</h1>
+           <h1 className='home-header'>Select a game!</h1>
           {/* <NavLink to='/blackjack' exact><button>Blackjack</button></NavLink> */}
           <a href='https://jchazen96.github.io/blackjack/'><button>Blackjack</button></a>
           {/* <NavLink to='/war' exact><button>War</button></NavLink> */}
